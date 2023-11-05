@@ -1,0 +1,41 @@
+.custom-container {
+  background-color: white;
+  width: 80%;
+  height: 80%;
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-input {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-input-field {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.5rem;
+  width: 350px;
+}
+
+h1{
+  text-align: left;
+  font-size: 25px;
+  padding-bottom: 70px;
+  padding-right: 100px;
+}
+
+.log_button{
+  width: 150px;
+  padding: 5px;
+  margin-left: 380px;
+  border: black 1px solid;
+  border-radius: 5px;
+}
