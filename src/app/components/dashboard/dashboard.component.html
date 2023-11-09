@@ -1,0 +1,38 @@
+<div>
+  <button [routerLink]="['/create']" class="create">
+    Create new ticket
+  </button>
+  <div class="buttons-container">
+    <button class="ticket_btn" [class.active]="activeButton === 'allTickets'" (click)="setActiveButton('allTickets')">All Tickets</button>
+    <button class="ticket_btn" [class.active]="activeButton === 'myTickets'" (click)="setActiveButton('myTickets')">My Tickets</button>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Desired Date</th>
+        <th>Urgency</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let ticket of tickets">
+        <td>{{ ticket.id }}</td>
+        <a *ngFor="let ticket of tickets" [routerLink]="['/tickets', ticket.id]">
+          {{ ticket.name }}
+        </a>
+        <td>{{ ticket.desired_resolution_date }}</td>
+        <td>{{ ticket.assigneer.urgency_id }}</td>
+        <td>{{ ticket.approver.state_id }}</td>
+        <td>{{ ticket.approver.category_id }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

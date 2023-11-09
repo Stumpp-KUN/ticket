@@ -1,0 +1,20 @@
+.default-container {
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 98vh;
+  margin: 0;
+}
+
+.custom-container {
+  background-color: white;
+  width: 80%;
+  height: 80%;
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

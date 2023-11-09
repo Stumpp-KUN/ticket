@@ -1,29 +1,48 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
+import {Routes, RouterModule} from '@angular/router';
+import {AppComponent} from './app.component';
 import {LoginComponent} from "./components/login/login.component";
-import {HttpClientModule} from "@angular/common/http";
-import {FormsModule} from "@angular/forms";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {CustomeInterceptor} from "./components/services/custome.interceptor";
+import {DashboardComponent} from "./components/dashboard/dashboard.component";
+import {TicketComponent} from "./components/ticket/ticket.component";
+import {CreateComponent} from "./components/create/create.component";
 
 
 const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent }
+  {path: 'login', component: LoginComponent},
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: 'dashboard', component: DashboardComponent},
+  {path: 'tickets/:id', component: TicketComponent},
+  {path: 'create', component: CreateComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent,
+    TicketComponent,
+    CreateComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CustomeInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

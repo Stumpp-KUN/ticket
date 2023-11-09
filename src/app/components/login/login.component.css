@@ -1,21 +1,13 @@
-.custom-container {
-  background-color: white;
-  width: 80%;
-  height: 80%;
-  padding: 1rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .custom-input {
   margin-bottom: 1rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+
+.custom-input p {
+  margin-right: 1rem;
 }
 
 .custom-input-field {
@@ -25,17 +17,23 @@
   width: 350px;
 }
 
-h1{
-  text-align: left;
+h1 {
   font-size: 25px;
   padding-bottom: 70px;
-  padding-right: 100px;
+  padding-right: 80px;
 }
 
-.log_button{
+p{
+  font-size: 17px;
+  font-family: Arial, serif;
+}
+
+.log_button {
   width: 150px;
   padding: 5px;
   margin-left: 380px;
-  border: black 1px solid;
+  border: 1px solid black;
   border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
 }

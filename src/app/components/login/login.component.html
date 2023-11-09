@@ -1,17 +1,14 @@
-<div class="h-screen flex justify-center items-center">
-  <div class="custom-container">
+  <div>
     <h1>Login to the Help Desk</h1>
-    <div class="mb-4">
-      <div class="mb-2 custom-input">
-        <p class="mr-3">User Name: </p>
-        <input class="custom-input-field" [(ngModel)]="username">
-      </div>
-
-      <div class="mb-2 custom-input">
-        <p class="mr-6">Password: </p>
-        <input class="custom-input-field" type="password" [(ngModel)]="password">
-      </div>
+    <div class="custom-input">
+      <p>User Name: </p>
+      <input class="custom-input-field" [(ngModel)]="username">
     </div>
+
+    <div class="custom-input">
+      <p>Password: </p>
+      <input class="custom-input-field" type="password" [(ngModel)]="password">
+    </div>
+
     <button (click)="login()" class="log_button">Enter</button>
   </div>
-</div>

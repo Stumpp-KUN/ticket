@@ -1,0 +1,58 @@
+<div class="left-column">
+  <button [routerLink]="['/dashboard']" class="ticket-list-button">Ticket List</button>
+  <h1>Create new Ticket</h1>
+
+  <form [formGroup]="createForm" (ngSubmit)="submitForm()">
+    <table>
+      <tr>
+        <td>Category</td>
+        <td>
+          <select class="select-field" formControlName="category">
+            <option>Application & Services</option>
+            <option>Benefits & Paper Work</option>
+            <option>Hardware & Software</option>
+            <option>People Management</option>
+            <option>Security & Access</option>
+            <option>Workplaces & Facilities</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td><input type="text" class="input-field" formControlName="name"></td>
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td><textarea class="input-field-big" formControlName="description"></textarea></td>
+      </tr>
+      <tr>
+        <td>Urgency</td>
+        <td>
+          <select class="select-field" formControlName="urgency">
+            <option>Critical</option>
+            <option>High</option>
+            <option>Medium</option>
+            <option>Low</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Desired resolution Date</td>
+        <td><input type="text" class="input-field" formControlName="desiredDate"></td>
+      </tr>
+      <tr>
+        <td>Add attachments</td>
+        <td><input type="file" class="file-input" formControlName="attachment"></td>
+      </tr>
+      <tr>
+        <td>Comment</td>
+        <td><textarea class="input-field-big" formControlName="comment"></textarea></td>
+      </tr>
+    </table>
+
+    <div class="buttons-container">
+      <button class="draft-btn">Save as Draft</button>
+      <button class="final-btn" type="submit">Submit</button>
+    </div>
+  </form>
+</div>
