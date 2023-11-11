@@ -22,20 +22,21 @@ export class DashboardComponent implements OnInit {
     this.loadTableData();
   }
 
+
   loadTableData() {
+    let type: number = 1; // Assign a default value
+
     if (this.activeButton === 'allTickets') {
-      this.tickets.splice(0, this.tickets.length);
-      this.http.get("http://localhost:8080/api/v1/ticket/collect").subscribe((res: any) => {
-        this.tickets = res;
-        console.log(this.tickets);
-      });
+      type = 1;
     } else if (this.activeButton === 'myTickets') {
-      this.tickets.splice(0, this.tickets.length);
-      this.http.get("http://localhost:8080/api/v1/ticket/collect/own").subscribe((res: any) => {
-        this.tickets = res;
-        console.log(this.tickets);
-      });
+      type = 2;
     }
+
+    this.tickets.splice(0, this.tickets.length);
+    this.http.get(`http://localhost:8080/api/v1/ticket/collect?type=${type}`).subscribe((res: any) => {
+      this.tickets = res;
+      console.log(this.tickets);
+    });
   }
 
 }
