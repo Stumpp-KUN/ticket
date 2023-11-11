@@ -50,7 +50,7 @@ export class CreateComponent {
   }
 
   submitForm() {
-    console.log(this.createForm.value); // Проверьте значения полей в консоли перед отправкой
+    console.log(this.createForm.value);
     if (this.createForm.valid) {
 
       this.http.post("http://localhost:8080/api/v1/ticket/create", this.createForm.value).subscribe((res:any) => {
