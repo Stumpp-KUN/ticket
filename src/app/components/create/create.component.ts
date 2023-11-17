@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'create',
@@ -13,11 +13,11 @@ export class CreateComponent {
 
   constructor(private formBuilder: FormBuilder, private router: Router, public http: HttpClient) {
     this.createForm = this.formBuilder.group({
-      category: ['', Validators.required],
+      category_id: ['', Validators.required],
       name: ['', [Validators.required, Validators.maxLength(100), this.nameValidator]],
       description: ['', [Validators.required, Validators.maxLength(500), this.descriptionValidator]],
-      urgency: ['', Validators.required],
-      desiredDate: ['', [Validators.required, this.dateValidator]],
+      urgencyId: ['', Validators.required],
+      desiredResolutionDate: ['', [Validators.required, this.dateValidator]],
       attachment: [''],
       comment: ['']
     });
@@ -38,8 +38,7 @@ export class CreateComponent {
   }
 
   dateValidator(control: AbstractControl): ValidationErrors | null {
-    const datePattern = /^\d{2}\/\d{2}\/\d{4}$/;
-    if (datePattern.test(control.value)) {
+    if (control.value) {
       const selectedDate = new Date(control.value);
       const currentDate = new Date();
       const isValid = selectedDate >= currentDate;
@@ -50,19 +49,26 @@ export class CreateComponent {
   }
 
   submitForm() {
-    console.log(this.createForm.value);
-    if (this.createForm.valid) {
+    const userEmail=localStorage.getItem("userEmail");
 
-      this.http.post("http://localhost:8080/api/v1/ticket/create", this.createForm.value).subscribe((res:any) => {
-        console.log(res);
-      }, (error:any)=>{
-        console.log("Error post request "+error);
-      });
-      this.router.navigate(['/dashboard']);
-    } else {
-      // Если форма недопустима, выполните необходимые действия,
-      // например, отобразите сообщение об ошибке
-      console.log('Форма заполнена некорректно.');
+      if (this.createForm.valid && userEmail) {
+        const ticketDTO: any = { ...this.createForm.value };
+        console.log(ticketDTO);
+        console.log(userEmail);
+        this.http.post("http://localhost:8080/api/v1/ticket/create", ticketDTO, {
+          params: { userEmail }
+        }).subscribe(
+          (res: any) => {
+            console.log(res);
+            this.router.navigate(['/dashboard']);
+          },
+          (error: any) => {
+            console.log("Error post request " + error);
+          }
+        );
+      } else {
+        console.log('Form is filled incorrectly.');
     }
   }
+
 }

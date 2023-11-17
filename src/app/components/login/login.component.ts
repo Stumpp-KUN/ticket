@@ -20,6 +20,11 @@ export class LoginComponent {
       .subscribe((response: any) => {
         if (response.access_token) {
           localStorage.setItem("accessToken",response.access_token);
+          const decodedToken = JSON.parse(atob(response.access_token.split('.')[1]));
+          const userEmail = decodedToken.email;
+          const userRoles = decodedToken.realm_access.roles;
+          localStorage.setItem("userEmail",userEmail);
+          localStorage.setItem("role",userRoles[1]);
           this.router.navigateByUrl("/dashboard")
         } else {
           console.error('Access Token not found in the response.');

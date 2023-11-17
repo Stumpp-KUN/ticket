@@ -10,6 +10,8 @@ import {CustomeInterceptor} from "./components/services/custome.interceptor";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {TicketComponent} from "./components/ticket/ticket.component";
 import {CreateComponent} from "./components/create/create.component";
+import {EditComponent} from "./components/edit/edit.component";
+import {TicketReview} from "./components/review/review.component";
 
 
 const appRoutes: Routes = [
@@ -17,7 +19,9 @@ const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'tickets/:id', component: TicketComponent},
-  {path: 'create', component: CreateComponent}
+  {path: 'create', component: CreateComponent},
+  {path: 'edit/:id', component: EditComponent},
+  {path: 'review', component:TicketReview}
 ];
 
 @NgModule({
@@ -26,7 +30,9 @@ const appRoutes: Routes = [
     LoginComponent,
     DashboardComponent,
     TicketComponent,
-    CreateComponent
+    CreateComponent,
+    EditComponent,
+    TicketReview
   ],
   imports: [
     BrowserModule,

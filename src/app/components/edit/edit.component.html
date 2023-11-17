@@ -1,8 +1,8 @@
 <div class="left-column">
-  <button [routerLink]="['/dashboard']" class="ticket-list-button">Ticket List</button>
-  <h1>Create new Ticket</h1>
+  <button [routerLink]="['/tickets',ticketId]" class="ticket-list-button">Back to Ticket</button>
+  <h1>Edit Ticket</h1>
 
-  <form [formGroup]="createForm" (ngSubmit)="submitForm()">
+  <form [formGroup]="editForm" (ngSubmit)="submitForm()">
     <table>
       <tr>
         <td>Category</td>
@@ -51,8 +51,7 @@
     </table>
 
     <div class="buttons-container">
-      <button class="draft-btn">Save as Draft</button>
-      <button class="final-btn" type="submit">Submit</button>
+      <button class="final-btn" type="submit">Save</button>
     </div>
   </form>
 </div>

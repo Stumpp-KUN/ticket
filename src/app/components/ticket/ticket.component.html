@@ -1,0 +1,100 @@
+<div class="ticket-details">
+  <button [routerLink]="['/dashboard']" class="ticket-list-button">Ticket List</button>
+  <h1>Ticket - {{ ticketData?.name }}</h1>
+
+  <table>
+    <tr>
+      <td>Category</td>
+      <td>{{ ticketData?.category_id?.name }}</td>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td>{{ ticketData?.name }}</td>
+    </tr>
+    <tr>
+      <td>Description</td>
+      <td>{{ ticketData?.description }}</td>
+    </tr>
+    <tr>
+      <td>Urgency</td>
+      <td>{{ ticketData?.urgencyId }}</td>
+    </tr>
+    <tr>
+      <td>Created</td>
+      <td>{{ ticketData?.createdOn }}</td>
+    </tr>
+    <tr>
+      <td>Desired resolution Date</td>
+      <td>{{ ticketData?.desiredResolutionDate }}</td>
+    </tr>
+    <tr>
+      <td>Add attachments</td>
+      <td>{{ ticketData?.attachment }}</td>
+    </tr>
+    <tr>
+      <td>Status</td>
+      <td>{{ ticketData?.stateId }}</td>
+    </tr>
+    <tr>
+      <td>Approver</td>
+      <td>{{ ticketData?.approver?.firstName }} {{ ticketData?.approver?.lastName }}</td>
+    </tr>
+    <tr>
+      <td>Assigneer</td>
+      <td>{{ ticketData?.assigneer?.firstName }} {{ ticketData?.assigneer?.lastName }}</td>
+    </tr>
+    <tr>
+      <td>Owner</td>
+      <td>{{ ticketData?.ownerId?.firstName }} {{ ticketData?.ownerId?.lastName }}</td>
+    </tr>
+  </table>
+
+  <div class="buttons-container">
+    <button class="ticket_btn" [class.active]="activeTab === 'history'" (click)="setActiveButton('history')">History</button>
+    <button class="ticket_btn" [class.active]="activeTab === 'comments'" (click)="setActiveButton('comments')">Comments</button>
+  </div>
+
+  <div class="info-space">
+  <table *ngIf="activeTab === 'history'" class="history-table">
+    <thead>
+    <tr>
+      <th>Date</th>
+      <th>User</th>
+      <th>Action</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let historyItem of historyData">
+      <td>{{ historyItem?.date }}</td>
+      <td>{{ historyItem?.user?.firstName }} {{ historyItem?.user?.lastName }}</td>
+      <td>{{ historyItem?.action }}</td>
+      <td>{{ historyItem?.description }}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <table *ngIf="activeTab === 'comments'" class="comments-table">
+    <thead>
+    <tr>
+      <th>Date</th>
+      <th>User</th>
+      <th>Comment</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let commentItem of commentsData">
+      <td>{{ commentItem.date }}</td>
+      <td>{{ commentItem.user?.firstName }}  {{ commentItem.user?.lastName}}</td>
+      <td>{{ commentItem.text }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+  <div class="button-action">
+    <button [routerLink]="['/edit',ticketId]" class="ticket-list-button">Edit</button>
+  </div>
+  <div class="button-action2">
+    <button [routerLink]="['/feedback']" class="ticket-list-button">Feedback</button>
+  </div>
+</div>

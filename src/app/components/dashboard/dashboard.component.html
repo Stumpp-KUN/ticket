@@ -1,7 +1,12 @@
 <div>
+  <div class="top-buttons">
+  <button [routerLink]="['/review']" class="manager-engineer-button">
+    Ticket Review
+  </button>
   <button [routerLink]="['/create']" class="create">
     Create new ticket
   </button>
+  </div>
   <div class="buttons-container">
     <button class="ticket_btn" [class.active]="activeButton === 'allTickets'" (click)="setActiveButton('allTickets')">All Tickets</button>
     <button class="ticket_btn" [class.active]="activeButton === 'myTickets'" (click)="setActiveButton('myTickets')">My Tickets</button>
@@ -12,27 +17,49 @@
       <thead>
       <tr>
         <th>ID</th>
-        <th>Name</th>
-        <th>Desired Date</th>
-        <th>Urgency</th>
+        <th>
+          Name
+          <button (click)="sort(4)" class="sort-icon">
+            <img src="assets/sort-up.svg" alt="Sort Up" width="20px">
+          </button>
+          <button (click)="sort(5)" class="sort-icon">
+            <img src="assets/sort-down.svg" alt="Sort Down" width="20px">
+          </button>
+        </th>
+        <th>
+          Desired Date
+          <button (click)="sort(7)" class="sort-icon">
+            <img src="assets/sort-up.svg" alt="Sort Up" width="20px">
+          </button>
+          <button (click)="sort(6)" class="sort-icon">
+            <img src="assets/sort-down.svg" alt="Sort Down" width="20px">
+          </button>
+        </th>
+        <th>
+          Urgency
+          <button (click)="sort(8)" class="sort-icon">
+            <img src="assets/sort-up.svg" alt="Sort Up" width="20px">
+          </button>
+          <button (click)="sort(9)" class="sort-icon">
+            <img src="assets/sort-down.svg" alt="Sort Down" width="20px">
+          </button>
+        </th>
         <th>Status</th>
-        <th>Action</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let ticket of tickets">
-        <td>{{ ticket.id }}</td>
-        <a *ngFor="let ticket of tickets" [routerLink]="['/tickets', ticket.id]">
-          {{ ticket.name }}
-        </a>
-        <td>{{ ticket.desired_resolution_date }}</td>
-        <td>{{ ticket.assigneer.urgency_id }}</td>
-        <td>{{ ticket.approver.state_id }}</td>
-        <td>{{ ticket.approver.category_id }}</td>
+      <tr *ngFor="let ticketItem of tickets">
+        <td>{{ ticketItem.id }}</td>
+        <td>
+          <a [routerLink]="['/tickets', ticketItem.id]">
+            {{ ticketItem.name }}
+          </a>
+        </td>
+        <td>{{ ticketItem.desiredResolutionDate }}</td>
+        <td>{{ ticketItem.urgencyId }}</td>
+        <td>{{ ticketItem.stateId }}</td>
       </tr>
       </tbody>
     </table>
   </div>
 </div>
-
-

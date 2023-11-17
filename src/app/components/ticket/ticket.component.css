@@ -1,0 +1,102 @@
+h1 {
+  position: absolute;
+  top: 80px;
+  left: 450px;
+  font-size: 34px;
+}
+
+table {
+  border-spacing: 10px;
+  position: absolute;
+  top: 150px;
+  left: 350px;
+}
+
+td {
+  font-size: 18px;
+  padding-right: 50px;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #61899b;
+  color: white;
+}
+
+.info-space{
+  position: absolute;
+  left: 650px;
+  top: 0;
+}
+
+.history-table,
+.comments-table{
+  width: 800px;
+  border-collapse: collapse;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.ticket_btn {
+  background-color: white;
+  color: black;
+  width: 350px;
+  height: 30px;
+  font-size: 18px;
+  border-radius: 5px;
+  margin-right: 10px;
+  border-color: #007acc;
+}
+
+.ticket_btn.active {
+  background-color: #007acc;
+  color: white;
+}
+
+.ticket_btn:hover{
+  background: #265d75;
+  color: white;
+}
+
+.buttons-container{
+  position: relative;
+  bottom: 350px;
+  left: 380px;
+}
+
+.ticket-list-button {
+  background-color: #5ebb5e;
+  color: white;
+  width: 100px;
+  height: 40px;
+  font-size: 18px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  left: 220px;
+  top: 100px;
+  position: absolute;
+  cursor: pointer;
+}
+
+.ticket-list-button:hover{
+  background-color: #388538;
+  color: black;
+}
+
+.button-action{
+  position: absolute;
+  top: 680px;
+  left: 150px;
+}
+
+.button-action2{
+  position: absolute;
+  top: 680px;
+  left: 280px;
+}

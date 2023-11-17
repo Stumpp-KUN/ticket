@@ -1,0 +1,74 @@
+
+<div>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>
+        Name
+      </th>
+
+      <th>
+        Desired Date
+      </th>
+
+      <th>
+        Urgency
+      </th>
+
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let ticketItem of tickets">
+      <td>{{ ticketItem.id }}</td>
+      <td>
+        <a [routerLink]="['/tickets', ticketItem.id]">
+          {{ ticketItem.name }}
+        </a>
+      </td>
+      <td>{{ ticketItem.desiredResolutionDate }}</td>
+      <td>{{ ticketItem.urgencyId }}</td>
+      <td>{{ ticketItem.stateId }}</td>
+      <td>
+
+        <ng-container *ngIf="ticketItem.ownerId.role === 'EMPLOYEE'">
+          <select class="select-field" #state (change)="handleStateAction(ticketItem,state.value)">
+            <option></option>
+            <option value="APPROVED">Approve</option>
+            <option value="DECLINED">Declined</option>
+            <option value="CANCELLED">Cancel</option>
+          </select>
+        </ng-container>
+
+        <ng-container *ngIf="ticketItem.ownerId.role === 'MANAGER' && ticketItem.ownerId.email === userEmail">
+          <select class="select-field" #state (change)="handleStateAction(ticketItem,state.value)">
+            <option></option>
+            <option value="NEW">Submit</option>
+            <option value="CANCELLED">Cancel</option>
+          </select>
+        </ng-container>
+
+
+        <ng-container *ngIf="ticketItem.ownerId.role === 'EMPLOYEE' && ticketItem.ownerId.email === userEmail">
+          <select class="select-field" #state (change)="handleStateAction(ticketItem,state.value)">
+            <option></option>
+            <option value="NEW">Submit</option>
+            <option value="CANCELLED">Cancel</option>
+          </select>
+        </ng-container>
+
+        <ng-container *ngIf="ticketItem.stateId==='APPROVED' && localStorage.getItem('role') === 'ENGINEER'">
+          <select class="select-field" #state (change)="handleEngineerAction(ticketItem,state.value)">
+            <option></option>
+            <option value="Assign">Assign to me</option>
+            <option value="CANCELLED">Cancel</option>
+          </select>
+        </ng-container>
+
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
