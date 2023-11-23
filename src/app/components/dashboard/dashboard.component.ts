@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
+import { BASE_ENDPOINT} from "../constants";
 
 @Component({
   selector: 'dashboard',
@@ -9,7 +10,7 @@ import { HttpClient } from "@angular/common/http";
 export class DashboardComponent implements OnInit {
 
   tickets: any[] = [];
-  activeButton: string | undefined = 'allTickets';
+  activeButton: string = 'allTickets';
   userRole: string | null = null;
   available: Boolean = false;
 
@@ -38,16 +39,22 @@ export class DashboardComponent implements OnInit {
     }
 
     this.tickets.splice(0, this.tickets.length);
-    this.http.get(`http://localhost:8080/api/v1/ticket/collect?type=${type}&available=${this.available}`).subscribe((res: any) => {
+    const params = new HttpParams()
+      .set('type', type.toString())
+      .set('available', this.available.toString());
+
+    this.http.get(BASE_ENDPOINT+`/collect`,{ params }).subscribe((res: any) => {
       this.tickets = res;
       console.log(this.tickets);
     });
   }
 
-  sort(type: number) {
-    const apiUrl = `http://localhost:8080/api/v1/ticket/collect?type=${type}&available=${this.available}`;
+  sortTicketsByType(type: number) {
+    const params = new HttpParams()
+      .set('type', type.toString())
+      .set('available', this.available.toString());
 
-    this.http.get(apiUrl).subscribe((res:any) => {
+    this.http.get(BASE_ENDPOINT+`/collect`,{ params }).subscribe((res: any) => {
       this.tickets=res;
 
     });

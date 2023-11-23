@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import {AUTH_ENDPOINT} from "../constants";
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,8 @@ export class AuthService {
       .set('username', username)
       .set('password', password);
 
-    return this.http.post('http://localhost:9090/realms/spring-ticket-realm/protocol/openid-connect/token', body.toString(), { headers });
+    return this.http.post(AUTH_ENDPOINT, body.toString(), { headers });
   }
-
-
 
   logout() {
     return this.http.post('/api/logout', {});

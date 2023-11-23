@@ -1,7 +1,6 @@
-// review.component.ts
-
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {BASE_ENDPOINT} from "../constants";
 
 @Component({
   selector: 'review',
@@ -11,27 +10,38 @@ import { HttpClient } from '@angular/common/http';
 export class TicketReview implements OnInit {
   tickets: any[] = [];
   userEmail: string | null = null;
+  userRole: string | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   ngOnInit() {
-    const userRole = localStorage.getItem('role');
+    this.userRole = localStorage.getItem('role');
     this.userEmail = localStorage.getItem('userEmail');
 
-    if(userRole === 'EMPLOYEE' && this.userEmail !==null){
-      this.loadEmployeeTickets(this.userEmail);
-    }
+    if (this.userRole !== null && this.userEmail !== null) {
+      switch (this.userRole) {
+        case 'EMPLOYEE':
+          this.loadEmployeeTickets(this.userEmail);
+          break;
 
-    if (userRole === 'MANAGER' && this.userEmail !== null) {
-      this.loadManagerTickets(this.userEmail);
-    }
-    if (userRole === 'ENGINEER' && this.userEmail !== null) {
-      this.loadEngineerTickets();
+        case 'MANAGER':
+          this.loadManagerTickets(this.userEmail);
+          break;
+
+        case 'ENGINEER':
+          this.loadEngineerTickets();
+          break;
+
+        default:
+          break;
+      }
     }
   }
 
-  loadEmployeeTickets(userEmail: string){
-    const apiUrl = `http://localhost:8080/api/v1/ticket/review/employee?userEmail=${userEmail}`;
+
+  loadEmployeeTickets(userEmail: string) {
+    const apiUrl = BASE_ENDPOINT + `/review/employee?userEmail=${userEmail}`;
 
     this.http.get(apiUrl).subscribe((res: any) => {
       this.tickets = res;
@@ -39,7 +49,7 @@ export class TicketReview implements OnInit {
   }
 
   loadManagerTickets(userEmail: string) {
-    const apiUrl = `http://localhost:8080/api/v1/ticket/review/manager?userEmail=${userEmail}`;
+    const apiUrl = BASE_ENDPOINT + `/review/manager?userEmail=${userEmail}`;
 
     this.http.get(apiUrl).subscribe((res: any) => {
       this.tickets = res;
@@ -47,7 +57,7 @@ export class TicketReview implements OnInit {
   }
 
   loadEngineerTickets() {
-    const apiUrl = `http://localhost:8080/api/v1/ticket/review/engineer`;
+    const apiUrl = BASE_ENDPOINT + `/review/engineer`;
 
     this.http.get(apiUrl).subscribe((res: any) => {
       this.tickets = res;
@@ -55,7 +65,7 @@ export class TicketReview implements OnInit {
   }
 
   handleStateAction(ticket: any, state: string) {
-    const apiUrl = `http://localhost:8080/api/v1/ticket/update/state?state=${state}&userEmail=${this.userEmail}`;
+    const apiUrl = BASE_ENDPOINT+`/update/state?state=${state}&userEmail=${this.userEmail}`;
 
     this.http.put(apiUrl, ticket).subscribe(
       (res: any) => {
@@ -71,8 +81,8 @@ export class TicketReview implements OnInit {
   }
 
   handleEngineerAction(ticket: any, state: string) {
-    if(state==='Assign'){
-      this.http.put(`http://localhost:8080/api/v1/ticket/update/assign?userEmail=${this.userEmail}`,ticket).subscribe(
+    if (state === 'Assign') {
+      this.http.put(BASE_ENDPOINT + `/update/assign?userEmail=${this.userEmail}`, ticket).subscribe(
         (res: any) => {
           console.log(res);
         },
@@ -80,9 +90,8 @@ export class TicketReview implements OnInit {
           console.log("Error put request " + error)
         }
       );
-    }
-    else {
-      const apiUrl = `http://localhost:8080/api/v1/ticket/update/state?state=${state}&userEmail=${this.userEmail}`;
+    } else {
+      const apiUrl = BASE_ENDPOINT + `/update/state?state=${state}&userEmail=${this.userEmail}`;
 
       this.http.put(apiUrl, ticket).subscribe(
         (res: any) => {

@@ -1,7 +1,6 @@
 <div class="left-column">
   <button [routerLink]="['/dashboard']" class="ticket-list-button">Ticket List</button>
   <h1>Create new Ticket</h1>
-
   <form [formGroup]="createForm" (ngSubmit)="submitForm()">
     <table>
       <tr>
@@ -49,7 +48,6 @@
         <td><textarea class="input-field-big" formControlName="comment"></textarea></td>
       </tr>
     </table>
-
     <div class="buttons-container">
       <button class="draft-btn">Save as Draft</button>
       <button class="final-btn" type="submit">Submit</button>

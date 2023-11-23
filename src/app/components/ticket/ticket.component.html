@@ -55,26 +55,34 @@
   </div>
 
   <div class="info-space">
-  <table *ngIf="activeTab === 'history'" class="history-table">
-    <thead>
-    <tr>
-      <th>Date</th>
-      <th>User</th>
-      <th>Action</th>
-      <th>Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let historyItem of historyData">
-      <td>{{ historyItem?.date }}</td>
-      <td>{{ historyItem?.user?.firstName }} {{ historyItem?.user?.lastName }}</td>
-      <td>{{ historyItem?.action }}</td>
-      <td>{{ historyItem?.description }}</td>
-    </tr>
-    </tbody>
-  </table>
+    <table *ngIf="activeTab === 'history'" class="history-table">
+      <thead>
+      <tr>
+        <th>Date</th>
+        <th>User</th>
+        <th>Action</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let historyItem of historyData">
+        <td>{{ historyItem?.date }}</td>
+        <td>
+          <ng-container *ngIf="historyItem?.user">
+            {{ historyItem?.user?.firstName }} {{ historyItem?.user?.lastName }}
+          </ng-container>
+          <ng-container *ngIf="!historyItem?.user">
+            Loading...
+          </ng-container>
+        </td>
+        <td>{{ historyItem?.action }}</td>
+        <td>{{ historyItem?.description }}</td>
+      </tr>
+      </tbody>
+    </table>
 
-  <table *ngIf="activeTab === 'comments'" class="comments-table">
+
+    <table *ngIf="activeTab === 'comments'" class="comments-table">
     <thead>
     <tr>
       <th>Date</th>

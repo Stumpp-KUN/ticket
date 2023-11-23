@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from "@angular/common/http";
+import { BASE_ENDPOINT, TEXT_REGEXP } from "../constants";
 
 @Component({
   selector: 'create',
@@ -24,15 +25,13 @@ export class CreateComponent {
   }
 
   nameValidator(control: AbstractControl): ValidationErrors | null {
-    const pattern = /^[a-zA-Z0-9 .,"()<>@[\]!#$%&'*+-/=?^_`{|-]+$/;
-    const isValid = pattern.test(control.value);
+    const isValid = TEXT_REGEXP.test(control.value);
     console.log('Name Validation:', isValid);
     return isValid ? null : { invalidName: true };
   }
 
   descriptionValidator(control: AbstractControl): ValidationErrors | null {
-    const pattern = /^[a-zA-Z0-9 .,"()<>@[\]!#$%&'*+-/=?^_`{|-]+$/;
-    const isValid = pattern.test(control.value);
+    const isValid = TEXT_REGEXP.test(control.value);
     console.log('Description Validation:', isValid);
     return isValid ? null : { invalidDescription: true };
   }
@@ -53,13 +52,11 @@ export class CreateComponent {
 
       if (this.createForm.valid && userEmail) {
         const ticketDTO: any = { ...this.createForm.value };
-        console.log(ticketDTO);
-        console.log(userEmail);
-        this.http.post("http://localhost:8080/api/v1/ticket/create", ticketDTO, {
+
+        this.http.post(BASE_ENDPOINT+"/create", ticketDTO, {
           params: { userEmail }
         }).subscribe(
           (res: any) => {
-            console.log(res);
             this.router.navigate(['/dashboard']);
           },
           (error: any) => {

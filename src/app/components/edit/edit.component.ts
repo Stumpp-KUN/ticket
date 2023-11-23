@@ -2,13 +2,14 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {BASE_ENDPOINT} from "../constants";
 
 @Component({
   selector: "edit",
   templateUrl: "./edit.component.html",
   styleUrls: ["./edit.component.css"],
 })
-export class EditComponent implements OnInit {
+export class EditComponent {
   ticketId: string = "";
   ticketData: any;
   editForm: FormGroup;
@@ -40,11 +41,9 @@ export class EditComponent implements OnInit {
   }
 
   loadTicketData(id: string) {
-    this.http.get(`http://localhost:8080/api/v1/ticket/${id}`).subscribe(
+    this.http.get(BASE_ENDPOINT+`/${id}`).subscribe(
       (res: any) => {
         this.ticketData = res;
-        console.log(this.ticketData);
-        // Set form values with existing data
         this.editForm.patchValue({
           category_id: this.ticketData.category_id.name,
           name: this.ticketData.name,
@@ -62,5 +61,6 @@ export class EditComponent implements OnInit {
   }
 
   submitForm() {
+
   }
 }

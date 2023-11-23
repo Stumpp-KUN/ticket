@@ -34,7 +34,17 @@
       <td>
 
         <ng-container *ngIf="ticketItem.ownerId.role === 'EMPLOYEE'">
-          <select class="select-field" #state (change)="handleStateAction(ticketItem,state.value)">
+          <ng-container *ngIf="ticketItem.stateId === 'DRAFT' || ticketItem.stateId === 'DECLINED'">
+            <select class="select-field" #state (change)="handleStateAction(ticketItem, state.value)">
+              <option></option>
+              <option value="NEW">Submit</option>
+              <option value="CANCELLED">Cancel</option>
+            </select>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="ticketItem.ownerId.role === 'EMPLOYEE' && userRole === 'MANAGER' && ticketItem.stateId==='NEW'">
+          <select class="select-field" #state (change)="handleStateAction(ticketItem, state.value)">
             <option></option>
             <option value="APPROVED">Approve</option>
             <option value="DECLINED">Declined</option>
@@ -42,22 +52,16 @@
           </select>
         </ng-container>
 
-        <ng-container *ngIf="ticketItem.ownerId.role === 'MANAGER' && ticketItem.ownerId.email === userEmail">
-          <select class="select-field" #state (change)="handleStateAction(ticketItem,state.value)">
+
+        <ng-container *ngIf="ticketItem.ownerId.role === 'MANAGER' && ticketItem.ownerId.email === userEmail
+        && (ticketItem.stateId === 'DRAFT' || ticketItem.stateId === 'DECLINED')">
+          <select class="select-field" #state (change)="handleStateAction(ticketItem, state.value)">
             <option></option>
             <option value="NEW">Submit</option>
             <option value="CANCELLED">Cancel</option>
           </select>
         </ng-container>
 
-
-        <ng-container *ngIf="ticketItem.ownerId.role === 'EMPLOYEE' && ticketItem.ownerId.email === userEmail">
-          <select class="select-field" #state (change)="handleStateAction(ticketItem,state.value)">
-            <option></option>
-            <option value="NEW">Submit</option>
-            <option value="CANCELLED">Cancel</option>
-          </select>
-        </ng-container>
 
         <ng-container *ngIf="ticketItem.stateId==='APPROVED' && localStorage.getItem('role') === 'ENGINEER'">
           <select class="select-field" #state (change)="handleEngineerAction(ticketItem,state.value)">

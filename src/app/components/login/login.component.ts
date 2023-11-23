@@ -19,16 +19,25 @@ export class LoginComponent {
     this.authService.login(this.username, this.password)
       .subscribe((response: any) => {
         if (response.access_token) {
-          localStorage.setItem("accessToken",response.access_token);
+          localStorage.setItem("accessToken", response.access_token);
           const decodedToken = JSON.parse(atob(response.access_token.split('.')[1]));
           const userEmail = decodedToken.email;
           const userRoles = decodedToken.realm_access.roles;
-          localStorage.setItem("userEmail",userEmail);
-          localStorage.setItem("role",userRoles[1]);
-          this.router.navigateByUrl("/dashboard")
+
+          const userRole = userRoles.find((role: string) => ["EMPLOYEE", "MANAGER", "ENGINEER"].includes(role));
+
+          if (userRole) {
+            localStorage.setItem("userEmail", userEmail);
+            localStorage.setItem("role", userRole);
+            this.router.navigateByUrl("/dashboard");
+          } else {
+            console.error('Invalid user role.');
+          }
         } else {
           console.error('Access Token not found in the response.');
         }
       });
   }
+
+
 }

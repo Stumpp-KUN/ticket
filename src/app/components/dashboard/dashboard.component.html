@@ -11,7 +11,6 @@
     <button class="ticket_btn" [class.active]="activeButton === 'allTickets'" (click)="setActiveButton('allTickets')">All Tickets</button>
     <button class="ticket_btn" [class.active]="activeButton === 'myTickets'" (click)="setActiveButton('myTickets')">My Tickets</button>
   </div>
-
   <div class="table-container">
     <table>
       <thead>
@@ -19,28 +18,28 @@
         <th>ID</th>
         <th>
           Name
-          <button (click)="sort(4)" class="sort-icon">
+          <button (click)="sortTicketsByType(4)" class="sort-icon">
             <img src="assets/sort-up.svg" alt="Sort Up" width="20px">
           </button>
-          <button (click)="sort(5)" class="sort-icon">
+          <button (click)="sortTicketsByType(5)" class="sort-icon">
             <img src="assets/sort-down.svg" alt="Sort Down" width="20px">
           </button>
         </th>
         <th>
           Desired Date
-          <button (click)="sort(7)" class="sort-icon">
+          <button (click)="sortTicketsByType(7)" class="sort-icon">
             <img src="assets/sort-up.svg" alt="Sort Up" width="20px">
           </button>
-          <button (click)="sort(6)" class="sort-icon">
+          <button (click)="sortTicketsByType(6)" class="sort-icon">
             <img src="assets/sort-down.svg" alt="Sort Down" width="20px">
           </button>
         </th>
         <th>
           Urgency
-          <button (click)="sort(8)" class="sort-icon">
+          <button (click)="sortTicketsByType(8)" class="sort-icon">
             <img src="assets/sort-up.svg" alt="Sort Up" width="20px">
           </button>
-          <button (click)="sort(9)" class="sort-icon">
+          <button (click)="sortTicketsByType(9)" class="sort-icon">
             <img src="assets/sort-down.svg" alt="Sort Down" width="20px">
           </button>
         </th>
